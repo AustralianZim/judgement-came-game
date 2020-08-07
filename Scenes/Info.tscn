@@ -1,0 +1,62 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Fonts/heading-2.tres" type="DynamicFont" id=1]
+[ext_resource path="res://Fonts/sub-text-2.tres" type="DynamicFont" id=2]
+[ext_resource path="res://Scenes/next_scene.gd" type="Script" id=3]
+[ext_resource path="res://sfx/backspace.wav" type="AudioStream" id=4]
+[ext_resource path="res://Scenes/Info.gd" type="Script" id=5]
+
+[node name="Info" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Container" type="VBoxContainer" parent="."]
+anchor_right = 1.0
+margin_top = 25.0
+margin_bottom = 71.0
+custom_constants/separation = 20
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Heading" type="Label" parent="Container"]
+margin_right = 1024.0
+margin_bottom = 38.0
+custom_fonts/font = ExtResource( 1 )
+text = "Developer's Notes"
+align = 1
+
+[node name="Text" type="Label" parent="Container"]
+margin_top = 58.0
+margin_right = 1024.0
+margin_bottom = 275.0
+custom_fonts/font = ExtResource( 2 )
+text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris aliquam consequat cursus. Morbi viverra orci in nisl volutpat posuere. Curabitur et enim dolor. Sed sit amet sollicitudin lacus. Mauris et tellus convallis, facilisis velit eget, efficitur odio. Aliquam cursus sollicitudin dui, at dapibus tellus blandit eget. Donec facilisis dui eu purus finibus, vitae gravida nisl aliquam.
+
+Aliquam vitae tincidunt justo, in pretium erat. Cras a blandit felis. Ut accumsan urna ut velit sollicitudin viverra. Phasellus eu turpis ut nisl placerat sagittis nec et augue. Sed elementum malesuada libero, vitae interdum dui. Morbi vitae nisl at tellus pretium fermentum. Cras pellentesque ipsum vel suscipit mollis. In magna nibh, suscipit id molestie ac, ultrices quis diam. Phasellus suscipit pretium urna, quis dictum metus pellentesque id. Sed hendrerit bibendum vulputate. Vivamus ac ex commodo, finibus arcu sit amet, tempor sapien. Sed a hendrerit sapien, quis lacinia leo. Nulla aliquam ornare erat, feugiat ultricies sapien blandit nec. Vivamus at magna viverra, accumsan felis sed, congue quam. Nam feugiat fringilla ultrices."
+align = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Return" type="Button" parent="Container"]
+margin_left = 392.0
+margin_top = 295.0
+margin_right = 631.0
+margin_bottom = 339.0
+size_flags_horizontal = 4
+custom_fonts/font = ExtResource( 1 )
+text = "Return to menu"
+script = ExtResource( 3 )
+scene_path = "res://Scenes/Title.tscn"
+
+[node name="click" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )
+volume_db = -8.0
+[connection signal="button_down" from="Container/Return" to="." method="click"]
+[connection signal="button_up" from="Container/Return" to="Container/Return" method="_button_up"]

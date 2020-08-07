@@ -1,0 +1,407 @@
+[gd_scene load_steps=21 format=2]
+
+[ext_resource path="res://Scenes/Poetry Lines.gd" type="Script" id=1]
+[ext_resource path="res://Fonts/heading-3.tres" type="DynamicFont" id=2]
+[ext_resource path="res://Scenes/Puzzle.gd" type="Script" id=3]
+[ext_resource path="res://MainUI/PuzzleLetter.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Scenes/PlayerInput.gd" type="Script" id=5]
+[ext_resource path="res://Scenes/ScrollContainer.gd" type="Script" id=6]
+[ext_resource path="res://MainUI/PoetryLine.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Fonts/heading-2.tres" type="DynamicFont" id=8]
+[ext_resource path="res://Fonts/sub-text-1.tres" type="DynamicFont" id=9]
+[ext_resource path="res://Scenes/Hints.gd" type="Script" id=10]
+[ext_resource path="res://Scenes/ScoreUI.gd" type="Script" id=11]
+[ext_resource path="res://Fonts/sub-text-2.tres" type="DynamicFont" id=12]
+[ext_resource path="res://sfx/backspace.wav" type="AudioStream" id=13]
+[ext_resource path="res://sfx/point.wav" type="AudioStream" id=14]
+[ext_resource path="res://sfx/loop_session.wav" type="AudioStream" id=15]
+[ext_resource path="res://Scenes/Draft-Main.gd" type="Script" id=16]
+[ext_resource path="res://Fonts/Title.tres" type="DynamicFont" id=17]
+[ext_resource path="res://Scenes/End-Screen.gd" type="Script" id=18]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.00392157, 0, 0.0117647, 0.937255 )
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0.00392157, 0, 0.0117647, 0.701961 )
+
+[node name="Main" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 16 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="UI" type="VBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ScoreUI" type="HBoxContainer" parent="UI"]
+margin_right = 1024.0
+margin_bottom = 38.0
+script = ExtResource( 11 )
+
+[node name="L_Bonus" type="Label" parent="UI/ScoreUI"]
+margin_right = 122.0
+margin_bottom = 38.0
+custom_fonts/font = ExtResource( 8 )
+text = " Bonus x"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Bonus" type="Label" parent="UI/ScoreUI"]
+margin_left = 126.0
+margin_right = 144.0
+margin_bottom = 38.0
+custom_fonts/font = ExtResource( 8 )
+text = "5"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Free_Guesses" type="Label" parent="UI/ScoreUI"]
+margin_left = 148.0
+margin_top = 9.0
+margin_right = 534.0
+margin_bottom = 28.0
+size_flags_horizontal = 3
+custom_fonts/font = ExtResource( 12 )
+text = "*****"
+
+[node name="L_Score" type="Label" parent="UI/ScoreUI"]
+margin_left = 538.0
+margin_right = 634.0
+margin_bottom = 38.0
+custom_fonts/font = ExtResource( 8 )
+text = " Score "
+
+[node name="Score" type="Label" parent="UI/ScoreUI"]
+margin_left = 638.0
+margin_right = 1024.0
+margin_bottom = 38.0
+size_flags_horizontal = 3
+custom_fonts/font = ExtResource( 8 )
+text = "0"
+
+[node name="completed" type="AudioStreamPlayer" parent="UI/ScoreUI"]
+stream = ExtResource( 14 )
+volume_db = -10.0
+
+[node name="Poetry" type="ScrollContainer" parent="UI"]
+margin_top = 42.0
+margin_right = 1024.0
+margin_bottom = 476.0
+size_flags_vertical = 3
+scroll_horizontal_enabled = false
+script = ExtResource( 6 )
+
+[node name="PoetryLines" type="VBoxContainer" parent="UI/Poetry"]
+margin_left = 512.0
+margin_right = 512.0
+margin_bottom = 434.0
+size_flags_horizontal = 6
+size_flags_vertical = 3
+script = ExtResource( 1 )
+line_template = ExtResource( 7 )
+
+[node name="Puzzle" type="HBoxContainer" parent="UI"]
+margin_top = 480.0
+margin_right = 1024.0
+margin_bottom = 480.0
+size_flags_vertical = 2
+size_flags_stretch_ratio = 0.1
+custom_constants/separation = 15
+alignment = 1
+script = ExtResource( 3 )
+LetterObject = ExtResource( 4 )
+
+[node name="Hints" type="Label" parent="UI"]
+margin_top = 527.0
+margin_right = 1024.0
+margin_bottom = 556.0
+custom_fonts/font = ExtResource( 9 )
+align = 1
+script = ExtResource( 10 )
+
+[node name="Terminal" type="HBoxContainer" parent="UI"]
+margin_top = 560.0
+margin_right = 1024.0
+margin_bottom = 599.0
+custom_constants/separation = 10
+
+[node name="Info" type="Label" parent="UI/Terminal"]
+margin_top = 5.0
+margin_right = 151.0
+margin_bottom = 34.0
+custom_fonts/font = ExtResource( 2 )
+text = "Player Input >"
+
+[node name="PlayerInput" type="LineEdit" parent="UI/Terminal"]
+margin_left = 161.0
+margin_right = 899.0
+margin_bottom = 39.0
+size_flags_horizontal = 3
+custom_fonts/font = ExtResource( 2 )
+caret_blink = true
+script = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="sfx" type="AudioStreamPlayer" parent="UI/Terminal/PlayerInput"]
+stream = ExtResource( 13 )
+volume_db = -10.0
+pitch_scale = 1.5
+
+[node name="enter" type="AudioStreamPlayer" parent="UI/Terminal/PlayerInput"]
+stream = ExtResource( 13 )
+volume_db = -13.0
+pitch_scale = 0.77
+
+[node name="GiveUp" type="Button" parent="UI/Terminal"]
+margin_left = 909.0
+margin_right = 1024.0
+margin_bottom = 39.0
+custom_fonts/font = ExtResource( 2 )
+text = " I give up "
+
+[node name="EndScreen" type="Panel" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_styles/panel = SubResource( 1 )
+script = ExtResource( 18 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Contents" type="VBoxContainer" parent="EndScreen"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 50.0
+margin_right = -50.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Title" type="Label" parent="EndScreen/Contents"]
+margin_right = 924.0
+margin_bottom = 76.0
+custom_fonts/font = ExtResource( 17 )
+text = "Thank you"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Text" type="Label" parent="EndScreen/Contents"]
+margin_top = 80.0
+margin_right = 924.0
+margin_bottom = 429.0
+custom_fonts/font = ExtResource( 9 )
+text = "
+You've reached the end of the game. 
+
+Thank you so much for playing, and please take a moment to read the poem in it's full. If you're a Christian, I hope it was encouraging, and if you're not, then I hope it was (in a good sense) challenging.
+
+Please also feel free to leave your feedback, and again...
+A big thank you!
+
+"
+align = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Return" type="Button" parent="EndScreen/Contents"]
+margin_left = 372.0
+margin_top = 433.0
+margin_right = 551.0
+margin_bottom = 468.0
+size_flags_horizontal = 4
+custom_fonts/font = ExtResource( 2 )
+text = "Return to game"
+
+[node name="Tut_Hint" type="Panel" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_styles/panel = SubResource( 2 )
+script = ExtResource( 18 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Tut_Hint"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -193.5
+margin_top = -125.0
+margin_right = 193.5
+custom_fonts/font = ExtResource( 2 )
+text = "Type a single letter to receive a hint.
+vvvvv
+
+"
+align = 1
+
+[node name="Tut_Bonus" type="Panel" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_styles/panel = SubResource( 2 )
+script = ExtResource( 18 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Tut_Bonus"]
+margin_left = 130.0
+margin_right = 387.0
+margin_bottom = 125.0
+custom_fonts/font = ExtResource( 2 )
+text = "
+^^^^^
+You get 5 free hints. Afterwards,
+every hint reduces your bonus. "
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Tut_Guess" type="Panel" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_styles/panel = SubResource( 2 )
+script = ExtResource( 18 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Tut_Guess"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -323.5
+margin_top = -125.0
+margin_right = 323.5
+custom_fonts/font = ExtResource( 2 )
+text = "Try guess the words... There is no penalty for wrong guesses
+vvvvv
+
+"
+align = 1
+
+[node name="Tut_GiveUp" type="Panel" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_styles/panel = SubResource( 2 )
+script = ExtResource( 18 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Tut_GiveUp"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -700.0
+margin_top = -125.0
+margin_right = -50.0
+custom_fonts/font = ExtResource( 2 )
+text = "If the puzzle is too hard, you can skip and reveal the answer
+vvvvv
+
+"
+align = 2
+
+[node name="Tut_Final" type="Panel" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_styles/panel = SubResource( 2 )
+script = ExtResource( 18 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Tut_Final"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -323.5
+margin_top = -80.0
+margin_right = 323.5
+custom_fonts/font = ExtResource( 2 )
+text = "Have fun, and enjoy the poem !"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Tut_Hidden" type="Panel" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_styles/panel = SubResource( 2 )
+script = ExtResource( 18 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Tut_Hidden"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -354.5
+margin_top = -80.0
+margin_right = 354.5
+custom_fonts/font = ExtResource( 2 )
+text = "Now the game gets harder! Some letters are permanently hidden."
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 15 )
+autoplay = true
+
+[node name="click" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 13 )
+volume_db = -10.0
+[connection signal="finish_game" from="UI/Poetry/PoetryLines" to="." method="_on_finish_game"]
+[connection signal="next_puzzle" from="UI/Poetry/PoetryLines" to="UI/Puzzle" method="next_puzzle"]
+[connection signal="completed" from="UI/Puzzle" to="UI/Poetry/PoetryLines" method="completed"]
+[connection signal="completed" from="UI/Puzzle" to="UI/ScoreUI" method="completed"]
+[connection signal="harder" from="UI/Puzzle" to="." method="_on_Puzzle_harder"]
+[connection signal="use_hint" from="UI/Puzzle" to="UI/ScoreUI" method="use_hint"]
+[connection signal="text_changed" from="UI/Terminal/PlayerInput" to="UI/Terminal/PlayerInput" method="_on_text_changed"]
+[connection signal="text_entered" from="UI/Terminal/PlayerInput" to="UI/Puzzle" method="make_guess"]
+[connection signal="text_entered" from="UI/Terminal/PlayerInput" to="UI/Puzzle" method="reveal_letter" binds= [ true ]]
+[connection signal="text_entered" from="UI/Terminal/PlayerInput" to="UI/Terminal/PlayerInput" method="clear_all"]
+[connection signal="text_entered" from="UI/Terminal/PlayerInput" to="." method="tutorial"]
+[connection signal="button_down" from="UI/Terminal/GiveUp" to="." method="click"]
+[connection signal="button_up" from="UI/Terminal/GiveUp" to="UI/Puzzle" method="make_guess" binds= [ "next" ]]
+[connection signal="visibility_changed" from="EndScreen" to="." method="click"]
+[connection signal="button_down" from="EndScreen/Contents/Return" to="." method="click"]
+[connection signal="button_up" from="EndScreen/Contents/Return" to="EndScreen" method="hide_self"]
+[connection signal="visibility_changed" from="Tut_Hint" to="." method="click"]
+[connection signal="visibility_changed" from="Tut_Bonus" to="." method="click"]
+[connection signal="size_flags_changed" from="Tut_Guess" to="." method="click"]
+[connection signal="size_flags_changed" from="Tut_GiveUp" to="." method="click"]
+[connection signal="size_flags_changed" from="Tut_Final" to="." method="click"]
+[connection signal="size_flags_changed" from="Tut_Hidden" to="." method="click"]

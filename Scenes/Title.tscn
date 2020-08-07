@@ -1,0 +1,78 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Fonts/Title.tres" type="DynamicFont" id=1]
+[ext_resource path="res://Fonts/heading-2.tres" type="DynamicFont" id=2]
+[ext_resource path="res://Fonts/heading-3.tres" type="DynamicFont" id=3]
+[ext_resource path="res://Scenes/next_scene.gd" type="Script" id=4]
+[ext_resource path="res://Scenes/Title.gd" type="Script" id=5]
+[ext_resource path="res://sfx/backspace.wav" type="AudioStream" id=6]
+
+[node name="Title" type="Control"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -512.0
+margin_top = -300.0
+margin_right = 512.0
+margin_bottom = 300.0
+script = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Menu" type="VBoxContainer" parent="."]
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_top = -141.5
+margin_bottom = 141.5
+custom_constants/separation = 64
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Title" type="Label" parent="Menu"]
+margin_right = 1024.0
+margin_bottom = 76.0
+custom_fonts/font = ExtResource( 1 )
+text = "Judgement Came"
+align = 1
+valign = 1
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Start" type="Button" parent="Menu"]
+margin_left = 424.0
+margin_top = 140.0
+margin_right = 600.0
+margin_bottom = 184.0
+size_flags_horizontal = 4
+custom_fonts/font = ExtResource( 2 )
+text = "Begin Story"
+script = ExtResource( 4 )
+scene_path = "res://Scenes/Draft-Main.tscn"
+
+[node name="Info" type="Button" parent="Menu"]
+margin_left = 415.0
+margin_top = 248.0
+margin_right = 609.0
+margin_bottom = 283.0
+size_flags_horizontal = 4
+custom_fonts/font = ExtResource( 3 )
+text = "Developer's note"
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+scene_path = "res://Scenes/Info.tscn"
+
+[node name="button_click" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 6 )
+volume_db = -8.0
+[connection signal="button_down" from="Menu/Start" to="." method="click_sound"]
+[connection signal="button_up" from="Menu/Start" to="Menu/Start" method="_button_up"]
+[connection signal="button_down" from="Menu/Info" to="." method="click_sound"]
+[connection signal="button_up" from="Menu/Info" to="Menu/Info" method="_button_up"]
